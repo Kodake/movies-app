@@ -1,20 +1,33 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
+import { createStackNavigator } from '@react-navigation/stack';
+import { Movie } from "../interfaces/movie.interface";
 import DetailScreen from "../screens/DetailScreen";
 import HomeScreen from "../screens/HomeScreen";
 
-const Stack = createNativeStackNavigator();
+export type RootStackParams = {
+    HomeScreen: undefined;
+    DetailScreen: Movie;
+}
+
+const Stack = createStackNavigator<RootStackParams>();
 
 const Navigation = () => {
     return (
         <Stack.Navigator
             screenOptions={{
                 headerShown: false,
-                statusBarStyle: 'light'
+                // gestureEnabled: true,
             }}
         >
             <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen name="DetailScreen" component={DetailScreen} />
+            <Stack.Screen
+                options={{
+                    headerShown: true,
+                    headerTitle: '',
+                    headerTransparent: true,
+                    headerTintColor: 'white'
+                }}
+                name="DetailScreen" component={DetailScreen} />
         </Stack.Navigator>
     );
 }
